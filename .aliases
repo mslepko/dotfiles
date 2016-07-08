@@ -1,0 +1,46 @@
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
+
+# mv, rm, cp
+alias mv='mv -v'
+alias rm='rm -i -v'
+alias cp='cp -v'
+
+alias hosts='sudo $EDITOR /etc/hosts'
+
+# GIT STUFF
+alias gs='git status -uno'
+alias gsa='git status'
+alias pp='git pull && git push origin HEAD'
+alias undopush="git push -f origin HEAD^:master" # undo a 'git push'
+alias master="git checkout master"
+
+# MERCURIAL STUFF
+alias hgs="hg status"
+function merge_to {
+    current_branch=`hg branch
+    
+    if [ -z "$1" ]
+    then
+        echo ">>> Set branch to which you want merge $current_branch !!!"
+    else
+        echo "Merge branch $current_branch to $1: [y/n]"
+        read merge
+
+        if [ "$merge" == "y" ]; then
+            hg pull && hg push --new-branch && hg up $1 && hg merge $current_branch && hg diff
+            echo "Merging: $current_branch"
+        fi
+    fi
+}
+
+
+# Recursively delete `.DS_Store` files
+alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
+
+# BREW STUFF
+alias brew_update="brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew cask cleanup; brew prune; brew doctor; npm-check -g -u"
+
+alias extip='curl -s http://whatismijnip.nl |cut -d " " -f 5'
+
